@@ -1,3 +1,14 @@
 page-home {
-
+    .fakeQuestion {
+        h2, p {
+          background-color: lightgrey;
+          opacity: 0.5;
+          height: 1em;
+          margin-top: 10px;
+          width: 35%;
+        }
+    }
+    .blissColor{
+        color: grey;
+    }
 }

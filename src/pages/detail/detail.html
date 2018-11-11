@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color='grey'>
+    <ion-title>Question {{aQuestion.id}} details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6>
+        <ion-card>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="{{aQuestion.thumb_url}}">
+            </ion-avatar>
+            <h1>Question {{aQuestion.id}}</h1>
+            <span>Published at {{aQuestion.published_at | date:"dd/MMM/yyyy"}}</span>
+            <button ion-button icon-only clear medium style='float:right;' (click)="showPrompt($event,aQuestion.id)">
+              <ion-icon name="ios-share-outline"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-card-content>
+            <h1>{{aQuestion.question}}</h1>
+            <div>
+              <ion-grid>
+                <ion-row justify-content-center>
+                  <ion-col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 *ngFor="let choice of aQuestion.choices; let i = index">
+                    <button ion-button icon-start clear small (click)="selectVote(i)">
+                        <ion-icon [name]="choice.clicked ? 'ios-star' :'ios-star-outline'"></ion-icon>
+                        <div>{{choice.choice}}</div>
+                      </button>
+                    <p> {{choice.votes}} Votes</p>
+                  </ion-col>
+                  <button [disabled]="!bIsenabled"  ion-button full round (click)="vote(aQuestion.id, aQuestion)">Vote</button>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,14 +1,80 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+  <ion-navbar color='grey'>
+    <ion-item no-lines color='grey'>
+      <ion-thumbnail item-start>
+        <img src="/assets/bliss.png">
+      </ion-thumbnail>
+      <ion-searchbar (ionInput)="onSearch()" [(ngModel)]="sStreamNameInput" debounce="500" [showCancelButton]="true"
+        placeholder="Search on questions..">
+      </ion-searchbar>
+      <button ion-button icon-only clear medium item-end medium (click)="showPrompt($event,0)" >
+        <ion-icon name="ios-share-outline"></ion-icon>
+      </button>
+    </ion-item>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Fake Streams.. Just to show some 'loading' -->
+  <div *ngIf="!aQuestions" class="fakeQuestion">
+    <ion-grid>
+        <h1 class="blissColor">Bliss Questions</h1>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-4 *ngFor="let fake of fakeQuestions">
+          <ion-card>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="">
+              </ion-avatar>
+              <h2></h2>
+              <p></p>
+            </ion-item>
+            <img src="">
+            <ion-card-content>
+              <p></p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="aQuestions">
+    <ion-grid *ngIf="aQuestions.length > 0">
+      <h1 class="blissColor">Bliss Questions</h1>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-4 *ngFor="let question of aQuestions">
+          <ion-card (click)="showQuestionDetails(question)">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="{{question.thumb_url}}">
+              </ion-avatar>
+              <h2>Question {{question.id}}</h2>
+              <p>Published at {{question.published_at | date:"dd/MMM/yyyy"}}</p>              
+            </ion-item>
+            <img src="{{question.image_url}}">
+            <ion-card-content>
+              <span>{{question.question}}</span>
+              <button ion-button icon-only clear medium style='float:right;' (click)="showPrompt($event,question.id)" >
+                <ion-icon name="ios-share-outline"></ion-icon>
+              </button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="sStreamNameInput && aQuestions.length == 0">
+      <h1 class="blissColor">No results found for '{{sStreamNameInput}}'</h1>
+    </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more questions..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
