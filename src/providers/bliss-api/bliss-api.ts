@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class BlissApiProvider {
-  private APIEndpoint: any = 'https://private-anon-660c1af00f-blissrecruitmentapi.apiary-mock.com/'
+  private APIEndpoint: any = 'https://private-anon-7960e72cf0-blissrecruitmentapi.apiary-mock.com/'
   constructor(public http: HttpClient) {
     
   }
