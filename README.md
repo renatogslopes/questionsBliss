@@ -1,6 +1,6 @@
 # questionsBliss
 
-This progressive web app was made in [[Ionic 3]](https://github.com/ionic-team/ionic) with the purpose to show all bliss questions, view details for each one and vote.
+This progressive web app was made in [Ionic 3](https://github.com/ionic-team/ionic) with the purpose to show all bliss questions, view details for each one and vote.
 
 [[Desktop Demo]](https://questionsbliss.firebaseapp.com/#/questions)
 [[Android Demo]](questionsBliss.apk)
